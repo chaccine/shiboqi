@@ -1,0 +1,123 @@
+:root {
+  --paper:  #f6f1e8;
+  --card:   #fffdf8;
+  --ink:    #352e27;
+  --muted:  #8a7d6c;
+  --line:   #e4dacb;
+  --accent: #c2843d;
+  --orange: #e89b4b;
+  --green:  #647c55;
+  --radius: 19px;
+  --shadow: 0 7px 24px #82664910;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 14px 14px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 顶栏 */
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 4px 2px 0; }
+.topbar h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+.topbar .help {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--card);
+  color: var(--muted); font-size: 15px; line-height: 1; cursor: pointer;
+}
+
+/* 示波器屏幕（深色） */
+.scope-card { background: #1a1f24; border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px; }
+#scope {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 10 / 8; border-radius: 12px; touch-action: none;
+}
+
+/* 模式 pill */
+.pills { display: flex; gap: 8px; justify-content: center; }
+.pill {
+  flex: 0 0 auto; padding: 7px 22px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card);
+  color: var(--muted); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+}
+.pill.active { background: var(--accent); border-color: var(--accent); color: #fffdf8; }
+
+/* 测量条 */
+.measures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.measure {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 13px; padding: 7px 4px; text-align: center;
+}
+.measure .label { font-size: 11px; color: var(--muted); }
+.measure .value { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+/* 控制卡 */
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 14px 14px 16px;
+}
+.card h2 { margin: 0 0 12px; font-size: 15px; font-weight: 700; }
+.card h2 .ch-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+.ch1-dot { background: var(--orange); }
+.ch2-dot { background: #5a8f7b; }
+
+.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.row:last-child { margin-bottom: 0; }
+.row .name { font-size: 13px; color: var(--ink); flex: 0 0 auto; }
+.row .value {
+  font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
+  color: var(--accent); flex: 0 0 84px; text-align: right;
+}
+
+input[type="range"] {
+  flex: 1 1 auto; -webkit-appearance: none; appearance: none;
+  height: 30px; background: transparent; margin: 0;
+}
+input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: var(--line); }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8.5px;
+  border-radius: 50%; background: var(--card); border: 5px solid var(--accent);
+}
+input[type="range"]::-moz-range-track { height: 5px; border-radius: 3px; background: var(--line); }
+input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--card); border: 5px solid var(--accent); }
+
+select {
+  flex: 1 1 auto; height: 34px; border-radius: 10px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+  font-size: 13px; padding: 0 8px;
+}
+
+.toggle {
+  border: 1px solid var(--line); background: #fff; color: var(--muted);
+  border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.toggle.on { background: var(--green); border-color: var(--green); color: #fffdf8; }
+.toggle.run.on { background: var(--accent); border-color: var(--accent); }
+
+.hint { font-size: 12px; color: var(--muted); text-align: center; margin: 8px 0 0; }
+
+/* 可折叠卡 */
+details.card { padding: 0; }
+details.card summary { list-style: none; cursor: pointer; padding: 14px 14px; font-size: 15px; font-weight: 700; }
+details.card summary::-webkit-details-marker { display: none; }
+details.card .card-body { padding: 0 14px 16px; }
+
+footer { text-align: center; font-size: 12px; color: var(--muted); }

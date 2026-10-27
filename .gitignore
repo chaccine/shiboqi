@@ -1,0 +1,9 @@
+*.log
+.DS_Store
+.playwright-mcp/
+HANDOFF.md
+_mockup_ref/
+_prompt*.txt
+codex-*.log
+codex-run.log
+node_modules/

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>示波器玩具</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="topbar">
+    <h1>示波器玩具</h1>
+    <button class="help" id="helpBtn" title="帮助">?</button>
+  </header>
+
+  <section class="scope-card">
+    <canvas id="scope" width="1000" height="800"></canvas>
+  </section>
+
+  <nav class="pills" id="modePills">
+    <button class="pill active" data-mode="yt">YT</button>
+    <button class="pill" data-mode="xy">X-Y</button>
+  </nav>
+
+  <section class="measures">
+    <div class="measure"><div class="label">频率</div><div class="value" id="mFreq">—</div></div>
+    <div class="measure"><div class="label">周期</div><div class="value" id="mPeriod">—</div></div>
+    <div class="measure"><div class="label">Vpp</div><div class="value" id="mVpp">—</div></div>
+    <div class="measure"><div class="label">Vrms</div><div class="value" id="mVrms">—</div></div>
+  </section>
+
+  <section class="card">
+    <h2>示波器控制</h2>
+    <div class="row" id="rowTimebase">
+      <span class="name">时基</span>
+      <input type="range" id="timebase" min="0" max="8" step="1" value="3">
+      <span class="value" id="timebaseVal">5 ms/div</span>
+    </div>
+    <div class="row">
+      <span class="name">伏/格</span>
+      <input type="range" id="voltsdiv" min="0" max="2" step="1" value="1">
+      <span class="value" id="voltsdivVal">1 V/div</span>
+    </div>
+    <div class="row">
+      <span class="name">触发电平</span>
+      <input type="range" id="trigger" min="-5" max="5" step="0.1" value="0">
+      <span class="value" id="triggerVal">0.0 V</span>
+    </div>
+    <div class="row">
+      <span class="name">噪声</span>
+      <input type="range" id="noise" min="0" max="2" step="0.05" value="0">
+      <span class="value" id="noiseVal">关</span>
+    </div>
+    <div class="row">
+      <span class="name">低通滤波</span>
+      <button class="toggle" id="filterBtn">关</button>
+    </div>
+    <div class="row">
+      <span class="name">运行</span>
+      <button class="toggle run on" id="runBtn">运行中</button>
+    </div>
+    <p class="hint">触发：CH1 · 上升沿</p>
+  </section>
+
+  <details class="card" open>
+    <summary><span class="ch-dot ch1-dot"></span>CH1</summary>
+    <div class="card-body">
+      <div class="row">
+        <span class="name">波形</span>
+        <select id="ch1Wave">
+          <option value="sine" selected>正弦</option>
+          <option value="square">方波</option>
+          <option value="triangle">三角</option>
+          <option value="sawtooth">锯齿</option>
+        </select>
+        <button class="toggle on" id="ch1On">开</button>
+      </div>
+      <div class="row">
+        <span class="name">频率</span>
+        <input type="range" id="ch1Freq" min="0" max="1000" step="1" value="459">
+        <span class="value" id="ch1FreqVal">50 Hz</span>
+      </div>
+      <div class="row">
+        <span class="name">幅度</span>
+        <input type="range" id="ch1Amp" min="0" max="5" step="0.1" value="2">
+        <span class="value" id="ch1AmpVal">2.0 V</span>
+      </div>
+      <div class="row">
+        <span class="name">偏置</span>
+        <input type="range" id="ch1Vdc" min="-5" max="5" step="0.1" value="0">
+        <span class="value" id="ch1VdcVal">0.0 V</span>
+      </div>
+      <div class="row" id="ch1DutyRow">
+        <span class="name">占空比</span>
+        <input type="range" id="ch1Duty" min="5" max="95" step="1" value="50">
+        <span class="value" id="ch1DutyVal">50%</span>
+      </div>
+    </div>
+  </details>
+
+  <details class="card" open>
+    <summary><span class="ch-dot ch2-dot"></span>CH2</summary>
+    <div class="card-body">
+      <div class="row">
+        <span class="name">波形</span>
+        <select id="ch2Wave">
+          <option value="sine" selected>正弦</option>
+          <option value="square">方波</option>
+          <option value="triangle">三角</option>
+          <option value="sawtooth">锯齿</option>
+        </select>
+        <button class="toggle on" id="ch2On">开</button>
+      </div>
+      <div class="row">
+        <span class="name">频率</span>
+        <input type="range" id="ch2Freq" min="0" max="1000" step="1" value="459">
+        <span class="value" id="ch2FreqVal">50 Hz</span>
+      </div>
+      <div class="row">
+        <span class="name">幅度</span>
+        <input type="range" id="ch2Amp" min="0" max="5" step="0.1" value="2">
+        <span class="value" id="ch2AmpVal">2.0 V</span>
+      </div>
+      <div class="row">
+        <span class="name">偏置</span>
+        <input type="range" id="ch2Vdc" min="-5" max="5" step="0.1" value="0">
+        <span class="value" id="ch2VdcVal">0.0 V</span>
+      </div>
+      <div class="row">
+        <span class="name">相位</span>
+        <input type="range" id="ch2Phase" min="-180" max="180" step="1" value="90">
+        <span class="value" id="ch2PhaseVal">90°</span>
+      </div>
+      <div class="row" id="ch2DutyRow">
+        <span class="name">占空比</span>
+        <input type="range" id="ch2Duty" min="5" max="95" step="1" value="50">
+        <span class="value" id="ch2DutyVal">50%</span>
+      </div>
+    </div>
+  </details>
+
+  <footer>纯前端 · 无依赖 · 设置保存在本机浏览器</footer>
+</div>
+
+<script src="js/waves.js"></script>
+<script src="js/measure.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/scope.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
